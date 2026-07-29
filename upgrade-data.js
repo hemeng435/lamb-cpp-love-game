@@ -1,5 +1,8 @@
 /* 第二阶段题库：每个知识点采用不同的交互形式，避免整局都是选择题。 */
 (() => {
+  window.gameData.characters.forEach(character => {
+    character.image = character.image.replace(/\.png$/, '.jpg');
+  });
   const banks = window.gameData.questionBanks;
   const byId = Object.fromEntries(banks.map(bank => [bank.id, bank]));
   const set = (id, variants) => { byId[id].items = variants.map((item, index) => ({ ...item, bankId:id, variant:index })); };
