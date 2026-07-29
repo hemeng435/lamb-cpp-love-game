@@ -20,20 +20,38 @@ window.gameData = {
     { title:'意外惊喜', sub:'被记住的瞬间', scene:'你发现贝壳小羊为你准备了一个小惊喜，正躲在角落观察你的反应。', say:'“我记得你说过喜欢这个，希望你会开心。”', opts:[['马上拥抱 TA，认真表达感谢',[3,3,1]],['告诉 TA 自己被这份细心打动了',[3,1,2]],['也开始盘算回赠一份惊喜',[2,3,1]],['小心收好礼物，默默珍藏这份心意',[1,0,3]]] },
     { title:'星光约定', sub:'把未来写下来', scene:'夜色很深，星星落在安静的湖面。贝壳小羊轻轻问你：“以后，也一起走吗？”', say:'“不需要回答得很快，我会陪你慢慢想。”', opts:[['坚定地说：想和你一起经历很多以后',[3,2,3]],['笑着说：那就从明天开始吧',[2,3,1]],['和 TA 一起列一张未来愿望清单',[2,2,3]],['靠在 TA 身边，用行动给出回答',[3,1,2]]] }
   ],
-  lessons: [
-    { topic:'第一课：程序的入口', prompt:'想使用 cout 输出内容时，需要包含哪个头文件？', code:'#include <span class="accent">&lt;______&gt;</span>\nusing namespace std;\n\nint main() {\n  cout &lt;&lt; "你好，贝壳小羊！";\n  return 0;\n}', options:['&lt;iostream&gt;','&lt;math&gt;','&lt;vector&gt;','&lt;file&gt;'], correct:0, hint:'想想“输入输出”对应的英文缩写 i/o。', explain:'iostream 提供了 cout 与 cin。写好 #include &lt;iostream&gt;，程序才能使用输入输出工具。' },
-    { topic:'第二课：main 函数', prompt:'C++ 程序从哪里开始执行？', code:'#include &lt;iostream&gt;\nusing namespace std;\n\nint <span class="accent">______</span>() {\n  return 0;\n}', options:['从 main() 开始','从第一行注释开始','从 cout 开始','从 return 开始'], correct:0, hint:'每个独立运行的 C++ 程序都需要一个固定的入口函数。', explain:'main() 是 C++ 程序的入口。操作系统会先找到它，再一行行执行其中的语句。' },
-    { topic:'第三课：输出', prompt:'下面哪一行会在屏幕上输出“心动”？', code:'<span class="accent">______</span> &lt;&lt; "心动";', options:['cout &lt;&lt; "心动";','cin &gt;&gt; "心动";','int 心动;','return "心动";'], correct:0, hint:'输出工具的方向是“向屏幕输出”。', explain:'cout 表示“向控制台输出”，<< 把右边的内容送到屏幕上。字符串要用英文双引号包起来。' },
-    { topic:'第四课：输入', prompt:'想把用户输入的年龄保存到 age，应该使用哪一行？', code:'int age;\n<span class="accent">______</span> &gt;&gt; age;', options:['cin >> age;','cout << age;','age == cin;','int cin = age;'], correct:0, hint:'输入工具的方向是“从键盘读入变量”。', explain:'cin 用来从键盘读取数据，>> 表示把输入存入右边的变量。' },
-    { topic:'第五课：变量', prompt:'哪一个变量适合保存“相遇的天数”这种整数？', code:'<span class="accent">______</span> days = 8;\ncout &lt;&lt; days;', options:['int days = 8;','double days = "8";','string days = 8;','bool days = 8;'], correct:0, hint:'整数类型的名字就是 integer 的缩写。', explain:'int 用来保存整数，例如 8、-3、2026。变量名 days 让代码的意思更容易看懂。' },
-    { topic:'第六课：条件判断', prompt:'当 score 大于等于 60 时，应该使用哪个条件？', code:'if (score <span class="accent">______</span> 60) {\n  cout &lt;&lt; "通过";\n}', options:['score >= 60','score = 60','score != 60','score ++ 60'], correct:0, hint:'“大于或等于”需要两个符号。', explain:'>= 的意思是“大于或等于”。注意 = 是赋值，== 才是判断是否相等。' },
-    { topic:'第七课：循环', prompt:'想让“加油！”输出 3 次，循环条件应写成什么？', code:'for (int i = 0; <span class="accent">______</span>; i++) {\n  cout &lt;&lt; "加油！";\n}', options:['i < 3','i = 3','i > 3','i == 3'], correct:0, hint:'i 从 0 开始，每轮增加 1；请想想条件在第几次检查时应停止。', explain:'i 从 0 开始，每次加 1；只要 i < 3，就会执行，共执行 0、1、2 三次。' },
-    { topic:'第八课：函数返回值', prompt:'这个函数想返回两数之和，空格处应该填什么？', code:'int add(int a, int b) {\n  <span class="accent">______</span>\n}', options:['return a + b;','cout a + b;','int a + b;','cin >> a + b;'], correct:0, hint:'函数把算出的结果“交回去”时，使用一个关键字。', explain:'return 会把函数计算出的结果交回给调用它的地方。因为 add 的返回类型是 int，所以要返回一个整数。' }
-  ],
-  practices: {
-    1: { title:'代码任务：让贝壳小羊打招呼', intro:'补全 cout 后面的内容，让控制台输出“你好，贝壳小羊！”。', before:'cout << ', after:';', placeholder:'在这里输入代码', hint:'输出一段文字时，文字需要被一对英文双引号包住。', check:value => /["“]你好，贝壳小羊！?["”]/.test(value.replace(/\s/g,'')), success:'输出成功：你好，贝壳小羊！' },
-    3: { title:'代码任务：判断是否通过', intro:'补全条件，让 score 大于或等于 60 时输出“通过”。', before:'if (score ', after:' 60) { cout << "通过"; }', placeholder:'在这里输入代码', hint:'需要放入一个关系比较符；当 score 刚好等于 60 时，条件也应成立。', check:value => value.replace(/\s/g,'') === '>=', success:'判断成功：score 达标，贝壳小羊为你鼓掌！' },
-    5: { title:'代码任务：循环三次', intro:'补全循环条件，让“加油！”恰好输出三次。', before:'for (int i = 0; ', after:'; i++) { cout << "加油！"; }', placeholder:'在这里输入代码', hint:'i 从 0 开始，每轮增加 1；条件需要让它在完成第 3 轮后停止。', check:value => value.replace(/\s/g,'') === 'i<3', success:'循环成功：加油！加油！加油！' },
-    7: { title:'代码任务：修好返回值', intro:'补全函数体，让它返回 a 和 b 的和。', before:'int add(int a, int b) { ', after:' }', placeholder:'在这里输入代码', hint:'函数体的最后要用一个关键字，把计算结果交回给调用它的地方。', check:value => value.replace(/\s/g,'').toLowerCase() === 'returna+b;', success:'修复成功：add(2, 3) 的结果是 5。' }
-  }
+  questionBanks: [
+    { id:'types', name:'变量与类型', kind:'概念辨析', items:[
+      { topic:'变量类型：真假状态', prompt:'要记录“贝壳小羊今天是否完成学习”，最合适的类型是？', code:'<span class="accent">______</span> finished = true;', options:['bool','int','double','char'], correct:0, hint:'这个变量只有两种可能：是或否。', explain:'bool 专门保存 true 或 false，适合表示是否完成、是否通过等状态。' },
+      { topic:'变量类型：平均分', prompt:'要保存 87.5 这样的平均分，最合适的类型是？', code:'<span class="accent">______</span> average = 87.5;', options:['double','int','bool','char'], correct:0, hint:'这个数带有小数部分。', explain:'double 可以保存带小数的数值；int 只能保存整数。' }
+    ]},
+    { id:'operators', name:'运算推演', kind:'表达式计算', items:[
+      { topic:'余数运算', prompt:'变量 rest 最终保存的数值是多少？', code:'int rest = 17 % 5;', options:['2','3','5','12'], correct:0, hint:'% 计算的是整除以后剩下的部分。', explain:'17 除以 5 得到 3 余 2，因此 rest 的值为 2。' },
+      { topic:'运算顺序', prompt:'变量 value 最终保存的数值是多少？', code:'int value = 2 + 3 * 4;', options:['14','20','24','9'], correct:0, hint:'乘除法的优先级高于加减法。', explain:'先计算 3 * 4 得到 12，再加 2，因此结果是 14。' }
+    ]},
+    { id:'logic', name:'逻辑判断', kind:'布尔推理', items:[
+      { topic:'并且条件', prompt:'下面条件的结果是 true 还是 false？', code:'bool pass = (score >= 60 && attendance >= 80);\n// score = 75, attendance = 78', options:['false','true','无法判断','编译错误'], correct:0, hint:'&& 表示两个条件必须同时满足。', explain:'分数达到要求，但出勤率没有达到 80，因此整个条件为 false。' },
+      { topic:'非运算', prompt:'当 age 为 18 时，下面表达式的结果是什么？', code:'bool adult = !(age < 18);', options:['true','false','18','编译错误'], correct:0, hint:'先判断括号内，再把结果反转。', explain:'18 < 18 为 false，!false 会得到 true。' }
+    ]},
+    { id:'branch', name:'条件分支', kind:'补全判断', items:[
+      { topic:'温度判断', prompt:'补全比较符，使 temperature 低于 0 时进入结冰分支。', code:'if (temperature <span class="accent">______</span> 0) {\n  // 结冰\n}', options:['<','>','==','!='], correct:0, hint:'“低于”描述的是数值更小。', explain:'temperature < 0 表示温度小于零度。' },
+      { topic:'相等判断', prompt:'补全符号，使 code 恰好等于 42 时通过验证。', code:'if (code <span class="accent">______</span> 42) {\n  // 通过\n}', options:['==','=','>=','&&'], correct:0, hint:'条件中“比较是否相等”和“赋值”使用的符号不同。', explain:'== 用于判断两个值是否相等；单个 = 用于赋值。' }
+    ]},
+    { id:'loops', name:'循环边界', kind:'次数追踪', items:[
+      { topic:'for 循环次数', prompt:'下面循环体会执行几次？', code:'for (int i = 1; i <= 5; i += 2) {\n  // 学习一次\n}', options:['3 次','2 次','4 次','5 次'], correct:0, hint:'依次列出 i 的取值，再看下一次是否仍满足条件。', explain:'i 依次为 1、3、5，共执行 3 次；下一次为 7 时条件不成立。' },
+      { topic:'while 循环次数', prompt:'下面循环体会执行几次？', code:'int n = 5;\nwhile (n > 0) {\n  n -= 2;\n}', options:['3 次','2 次','4 次','5 次'], correct:0, hint:'每执行一次 n 会减少 2。', explain:'n 依次为 5、3、1，第三次后变成 -1，循环停止。' }
+    ]},
+    { id:'arrays', name:'数组下标', kind:'下标定位', items:[
+      { topic:'读取数组元素', prompt:'下面表达式读取到的值是多少？', code:'int stars[4] = {2, 4, 6, 8};\nint value = stars[2];', options:['6','2','4','8'], correct:0, hint:'C++ 数组下标从 0 开始。', explain:'stars[0] 是 2，stars[1] 是 4，因此 stars[2] 是 6。' },
+      { topic:'数组范围', prompt:'下面哪一项会造成数组下标越界？', code:'int score[3] = {80, 90, 100};', options:['score[3]','score[2]','score[1]','score[0]'], correct:0, hint:'长度为 3 的数组一共只有三个合法位置。', explain:'合法下标是 0、1、2；访问 score[3] 超出了数组末尾。' }
+    ]},
+    { id:'functions', name:'函数调用', kind:'参数追踪', items:[
+      { topic:'函数返回值', prompt:'调用后 result 的值是多少？', code:'int bigger(int a, int b) {\n  return a > b ? a : b;\n}\nint result = bigger(4, 9);', options:['9','4','13','0'], correct:0, hint:'函数会返回两个参数中较大的那个。', explain:'4 不大于 9，因此条件运算符会返回 b，也就是 9。' },
+      { topic:'参数传递', prompt:'调用 add(3, 5) 时，函数内 a 和 b 分别是什么？', code:'int add(int a, int b) {\n  return a + b;\n}', options:['a=3，b=5','a=5，b=3','a=8，b=0','无法确定'], correct:0, hint:'实参按照调用时从左到右的位置传入。', explain:'第一个实参 3 传给 a，第二个实参 5 传给 b。' }
+    ]},
+    { id:'debug', name:'调试找错', kind:'错误定位', items:[
+      { topic:'编译错误定位', prompt:'这段代码不能编译，最需要补上的是什么？', code:'int age = 16\nif (age >= 16) {\n  // 可以参加\n}', options:['第一行末尾的分号','if 后面的括号','age 前面的 int','花括号中的注释'], correct:0, hint:'C++ 的一条普通语句结束时通常需要一个标记。', explain:'变量定义语句末尾缺少分号，因此会产生编译错误。' },
+      { topic:'比较与赋值', prompt:'下面条件里最主要的问题是什么？', code:'if (score = 100) {\n  // 满分\n}', options:['把赋值符号误写成了比较符号','score 不能是整数','if 不能有花括号','100 不能参与判断'], correct:0, hint:'条件要检查两个值是否相等，而不是修改 score。', explain:'单个 = 是赋值；判断是否相等应使用 ==。' }
+    ]}
+  ]
 };
