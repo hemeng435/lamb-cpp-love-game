@@ -5,13 +5,13 @@ const PROFILE_KEY = 'beike-lamb-cpp-profile-v4';
 const DAILY_GOAL = 3;
 
 const emptyState = () => ({ screen:'home', characterId:null, step:0, scores:[0,0,0], phase:'story', lessonSet:[], completed:[], learned:0, hint:false, feedback:null, sequence:[], sessionXP:0 });
-const emptyProfile = () => ({ xp:0, streak:0, lastStudyDate:'', correctTotal:0, completedChapters:0, badges:[], mastery:{}, reviewQueue:[], dailyDate:'', dailyCorrect:0, reducedMotion:false });
+const emptyProfile = () => ({ xp:0, streak:0, lastStudyDate:'', correctTotal:0, completedChapters:0, badges:[], mastery:{}, reviewQueue:[], recentVariants:{}, dailyDate:'', dailyCorrect:0, reducedMotion:false });
 const today = () => new Date().toISOString().slice(0,10);
 const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const load = (key, make) => { try { return { ...make(), ...JSON.parse(localStorage.getItem(key) || '{}') }; } catch { return make(); } };
 let state = load(SAVE_KEY, emptyState);
 let profile = load(PROFILE_KEY, emptyProfile);
-profile.mastery ||= {}; profile.reviewQueue ||= []; profile.badges ||= [];
+profile.mastery ||= {}; profile.reviewQueue ||= []; profile.recentVariants ||= {}; profile.badges ||= [];
 if (profile.dailyDate !== today()) { profile.dailyDate = today(); profile.dailyCorrect = 0; }
 
 function save() { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); localStorage.setItem(PROFILE_KEY, JSON.stringify(profile)); }
@@ -20,7 +20,12 @@ function routeKey() { const max = Math.max(...state.scores); return state.scores
 function route() { return routes[routeKey()]; }
 function lessonSet() {
   const priority = new Set(profile.reviewQueue);
-  return questionBanks.slice().sort((a,b) => Number(priority.has(b.id)) - Number(priority.has(a.id))).map(bank => ({ ...bank.items[Math.floor(Math.random() * bank.items.length)], bankId:bank.id, bankName:bank.name, bankKind:bank.kind }));
+  return questionBanks.slice().sort((a,b) => Number(priority.has(b.id)) - Number(priority.has(a.id))).map(bank => {
+    const candidates = bank.items.filter(item => item.variant !== profile.recentVariants[bank.id]);
+    const item = (candidates.length ? candidates : bank.items)[Math.floor(Math.random() * (candidates.length ? candidates : bank.items).length)];
+    profile.recentVariants[bank.id] = item.variant;
+    return { ...item, bankId:bank.id, bankName:bank.name, bankKind:bank.kind };
+  });
 }
 function lesson() { if (!Array.isArray(state.lessonSet) || state.lessonSet.length !== questionBanks.length) state.lessonSet = lessonSet(); return state.lessonSet[state.step]; }
 function btn(label, action, style='primary', extra='') { return `<button class="${style} ${extra}" data-action="${action}">${label}</button>`; }
